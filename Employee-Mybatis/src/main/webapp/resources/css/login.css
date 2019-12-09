@@ -1,0 +1,24 @@
+@charset "ISO-8859-1";
+body
+{
+	padding-top: 25vh;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+form
+{
+	background: white;
+}
+.form-container
+{
+	border-radius: 10px;
+	padding: 30px;
+	box-shadow: 0px 0px 10px 0px;
+}
+.alert 
+{
+	float: right;
+}
+#button
+{
+	margin-left:20%;
+}

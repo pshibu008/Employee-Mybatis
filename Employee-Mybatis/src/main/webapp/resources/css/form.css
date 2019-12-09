@@ -1,0 +1,19 @@
+.body
+{
+	background-color: white;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.error
+{
+	color: red;
+	font-size:13px;
+	font-style: italic;
+}
+label, input[type=text], input[type=email]
+{
+	font-size:13px;
+}
+option
+{
+	font-size:13px;
+}

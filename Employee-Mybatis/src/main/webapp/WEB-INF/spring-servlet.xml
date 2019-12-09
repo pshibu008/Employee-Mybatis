@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">  
+
+   <!-- Add support for conversion, formatting and validation support -->
+    <context:component-scan base-package="com.shivsashi" /> 
+    
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/Employee-Mybatis/src/main/webapp/index.jsp"/>
+			<bean class="com.shivsashi.interceptor.EmployeeInterceptor"></bean>
+		</mvc:interceptor>
+    </mvc:interceptors>
+
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" /> 
+		<property name="order" value="2"></property>  
+		<property name="prefix" value="/WEB-INF/jsps/"></property>    
+		<property name="suffix" value=".jsp"></property>   
+	</bean> 
+	
+	<bean id="viewResolver"
+		 class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	     <property name="order" value="1"></property>
+	     <property name="basename" value="views"></property>
+	</bean> 
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	     <property name="maxUploadSize" value="268435456"/>
+	</bean>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/"
+    cache-period="31556926"/>
+
+    <mvc:annotation-driven />
+   
+   <!-- Spring Internationalizations -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+	
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+	
+	<bean id="handlerMapping"
+    	class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <property name="interceptors">
+	        <ref bean="localeChangeInterceptor" />
+	    </property>    
+	</bean>	
+</beans>

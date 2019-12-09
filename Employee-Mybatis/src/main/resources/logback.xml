@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss:SSS} %-5level %logger - %thread - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>G:/logs/sample.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{HH:mm:ss:SSS} %-5level %logger - %thread - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>G:/logs/sample.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggerPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggerPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<logger name="com.shivsashi.importexcel" level="INFO"
+		additivity="false">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE-AUDIT"/>
+    </logger>
+
+	<root level="ERROR">
+		<appender-ref ref="FILE-AUDIT"/>
+		<appender-ref ref="STDOUT"/>
+	</root>
+
+</configuration>
